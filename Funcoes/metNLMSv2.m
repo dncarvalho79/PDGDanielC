@@ -16,7 +16,7 @@ yMicCut  = yMicCut  / (max(abs(yMicCut)) + eps);
 
 %%
 L=1024;
-lag=0%L/2;
+lag=L/2;
 %%
 yLineCut=[zeros(lag,1);yLineCut];
 yMicCut=[yMicCut;zeros(lag,1)];
