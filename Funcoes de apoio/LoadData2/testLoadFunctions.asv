@@ -1,0 +1,110 @@
+clear
+
+data=table()
+
+for i=1:114
+
+
+    name=strcat('loadData',num2str(i));
+    fh=str2func(name)
+    data=fh(data);
+    toDelete = data.Vazio == true;
+    data(toDelete,:) = [];
+
+end
+%%
+
+dataPlot=data(data.MicZero==false & data.LinhaZero==false,:);
+indices=cellfun(@isempty, (strfind(dataPlot.CasaCorda,'E1')));
+figure('Name','Harmonicos presentes nos dois corda E1')
+stem(dataPlot.Frequencia(indices,:),dataPlot.magnitudeDB(indices,:))       
+ylim([-30 30])
+xlim([80 24000])
+
+xscale('log')
+%%
+
+indices=cellfun(@isempty, (strfind(dataPlot.CasaCorda,'A')));
+figure('Name','Harmonicos presentes nos dois corda A')
+stem(dataPlot.Frequencia(indices,:),dataPlot.magnitudeDB(indices,:))   
+ylim([-30 30])
+xlim([80 24000])
+
+xscale('log')
+%%
+
+indices=cellfun(@isempty, (strfind(dataPlot.CasaCorda,'D')));
+figure('Name','Harmonicos presentes nos dois corda D')
+stem(dataPlot.Frequencia(indices,:),dataPlot.magnitudeDB(indices,:))      
+xlim([80 24000])
+ylim([-30 30])
+xscale('log')
+%%
+
+indices=cellfun(@isempty, (strfind(dataPlot.CasaCorda,'G')));
+figure('Name','Harmonicos presentes nos dois corda G')
+stem(dataPlot.Frequencia(indices,:),dataPlot.magnitudeDB(indices,:))    
+xlim([80 24000])
+ylim([-30 30])
+
+xscale('log')
+%%
+
+indices=cellfun(@isempty, (strfind(dataPlot.CasaCorda,'B')));
+figure('Name','Harmonicos presentes nos dois corda B')
+stem(dataPlot.Frequencia(indices,:),dataPlot.magnitudeDB(indices,:))
+xlim([80 24000])
+ylim([-30 30])
+
+xscale('log')
+%%
+indices=cellfun(@isempty, (strfind(dataPlot.CasaCorda,'E2')));
+figure('Name','Harmonicos presentes nos dois corda E2')
+stem(dataPlot.Frequencia(indices,:),dataPlot.magnitudeDB(indices,:)) 
+ylim([-30 30])
+
+xlim([80 24000])
+xscale('log')
+%%
+
+figure('Name','Harmonicos presentes nos dois')
+stem(dataPlot.Frequencia,dataPlot.magnitudeDB) 
+ylim([-30 30])
+
+xlim([80 24000])
+xscale('log')
+%%
+figure('Name','angulo de harmonicos presentes nos dois')
+semilog(dataPlot.Frequencia,dataPlot.Angulo)
+
+
+xlim([80 24000])
+xscale('log')
+
+%{
+
+%figure('Name','Harmonicos presentes só na linha')
+%stem(data.Frequencia(data.MicZero==true),data.magnitudeDB(data.MicZero==true))
+%xscale('log')
+
+%figure('Name','Harmonicos presentes só no mic')
+%stem(data.Frequencia(data.LinhaZero==true),data.magnitudeDB(data.LinhaZero==true))
+%xscale('log')
+
+figure('Name','Harmonicos 1 ordem')
+stem(data.Frequencia(data.MicZero==false & data.LinhaZero==false & data.Harmonico==1),data.magnitudeDB(data.MicZero==false & data.LinhaZero==false & data.Harmonico==1))
+xscale('log')
+
+figure('Name','Harmonicos 2 ordem')
+stem(data.Frequencia(data.MicZero==false & data.LinhaZero==false & data.Harmonico==2),data.magnitudeDB(data.MicZero==false & data.LinhaZero==false & data.Harmonico==2))
+xscale('log')
+
+figure('Name','Harmonicos 3 ordem')
+stem(data.Frequencia(data.MicZero==false & data.LinhaZero==false & data.Harmonico==3),data.magnitudeDB(data.MicZero==false & data.LinhaZero==false & data.Harmonico==3))
+xscale('log')
+%%
+figure('Name','nota 1E')
+stem(data.Frequencia(data.MicZero==false & data.LinhaZero==false & data.CasaCorda=='2E1'),data.magnitudeDB(data.MicZero==false & data.LinhaZero==false & data.CasaCorda=='2E1'))
+
+xscale('log')
+%}

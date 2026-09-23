@@ -134,7 +134,7 @@ legend('data interpolada','Após média móvel')
 %%
 F=FreqNote*2/Fs;
 A=dataAllgrid(:,1);
-N=2^16;
+N=2^10;
 F(end)=1;
 F(1)=0;
 A(1)=-99;
@@ -199,8 +199,8 @@ xhat=xhat*ydiff;
 %%
 audiowrite('x.wav',x_delay,Fs);
 audiowrite('y.wav',y_delay,Fs);
-audiowrite('xhatFPBS.wav',xhat,Fs);
+audiowrite('xhatFPBSFast.wav',xhat,Fs);
 %%
 peaqNotaX=PQevalAudio('y.wav','x.wav');
-peaqNotaxHat=PQevalAudio('y.wav','xhatFPBS.wav'); % na 1 vez -2.202,  -2.057 na segunda a partir da filtragem de xhat
+peaqNotaxHat=PQevalAudio('y.wav','xhatFPBSFast.wav'); % na 1 vez -2.202,  -2.057 na segunda a partir da filtragem de xhat fast -3.088
 toc%Elapsed time is 18.851814 seconds.

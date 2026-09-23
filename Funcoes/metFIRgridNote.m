@@ -59,13 +59,13 @@ end
 
 %%
 figure('Name','Magnitudes')
-plot(FreqNote,mag2db((data(:,1))),FreqNote,mag2db((data(:,2))));
+plot(FreqNote,mag2db((data(:,2))),FreqNote,mag2db((data(:,1))));
 title('Respostas em frequência dos sinais')
 xlim([50 24000])
 %ylim([-60 1])
 xlabel('Frequência (Hz)');
 ylabel('Magnitude (dB)');
-legend('Microfone','Linha')
+legend('Linha','Microfone')
 grid on
 xscale("log")
 %figure('Name','Magnitudes complex')
@@ -122,7 +122,7 @@ legend('data antes da média','Após média móvel')
 %ylim([-20 20])
 %}
 %%
-N=2^16;
+N=2^10;
 F=FreqNote*2/Fs;
 F(1)=0;
 F(end)=1;
@@ -171,19 +171,19 @@ if delay_x < 0 || delay_xhat < 0
     disp('delay compensation error')
 end
 %Neste piorou
-%{
+
 yPow=mean(y_delay.^2);
 xhatPow=mean(xhat.^2);
 ydiff=yPow/xhatPow;
 xhat=xhat*ydiff;
-%}
+
 
 %%
 audiowrite('x.wav',x_delay,Fs);
 audiowrite('y.wav',y_delay,Fs);
-audiowrite('xhatFIRgridNote.wav',xhat,Fs);
+audiowrite('xhatFIRgridNoteFast.wav',xhat,Fs);
 %%
 
 peaqNotaX=PQevalAudio('y.wav','x.wav');
-peaqNotaxHat=PQevalAudio('y.wav','xhatFIRgridNote.wav'); %-2.129 rod 2 vez a partir da filtragem -2.378 na 1
+peaqNotaxHat=PQevalAudio('y.wav','xhatFIRgridNoteFast.wav'); %-2.129 rod 2 vez a partir da filtragem -2.378 na 1 %fast-3.034
 %toc Elapsed time is 2.871419 seconds.
